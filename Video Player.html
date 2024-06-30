@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Video Player</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        #filebtn{
+            transition: 0.2s ease-in-out;
+        }
+
+        #filebtn:hover{
+            transform: scale(1.2);
+            color: black;
+            
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white flex-col items-center justify-center" style="margin-top: 5%;">
+    <div class="max-w-3xl w-full p-4 bg-gray-800 bg-opacity-75 rounded-lg shadow-lg flex flex-col items-center" style="margin-left:auto; margin-right: auto;">
+        <div class="relative w-full">
+            <video id="video" class="w-full rounded-lg" controls>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="mt-4">
+            <h2 class="text-2xl font-bold" style="text-align: center;" id="title">Video Title</h2>
+            <p class="text-gray-300 mt-2" style="text-align: center;">Created By Satvik Mishra</p>
+        </div>
+    </div>
+
+    <div class="mt-5 flex items-center justify-center">
+        <input type="file" id="input" style="display: none;">
+        <button id="filebtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <i class="fas fa-upload mr-2"></i> Choose Video
+        </button>
+
+    <script>
+        const player = document.getElementById("video");
+        const input = document.getElementById("input");
+        const filebtn = document.getElementById("filebtn");
+        const title = document.getElementById("title");
+
+        filebtn.addEventListener("click", function(){
+            input.click();
+        })
+
+        input.addEventListener("change", function(){
+            const file = input.files[0];
+            if(file){
+                const path = URL.createObjectURL(file);
+                player.src = path;
+                filebtn.innerHTML = '<i class="fas fa-upload mr-2"></i>Choose Another Video';
+                title.innerHTML = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+            }
+        })
+    </script>
+</body>
+</html>
